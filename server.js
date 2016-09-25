@@ -29,7 +29,7 @@ app.get('/ui/madi.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
 });
 
-app.gete('/ui/Kung-Fu-Panda-2-icon.png', function(req,res){
+app.get('/ui/Kung-Fu-Panda-2-icon.png', function(req,res){
     res.sendFile(path.join(_dirname,'ui','Kung-Fu-Panda-2-icon.png'));
 });
 
