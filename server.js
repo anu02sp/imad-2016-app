@@ -5,19 +5,39 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
-var articleone =
-{
-    title :'Article one | Annapoorna',
-    heading: "article one",
-    date:'sep 5 2016',
-    content:
-    `<div>
-        <p>
-            this is article one.
-        </p>
-        </div>`
-};
+var articles= {
 
+         'article-one':{
+        
+            title :'Article one | Annapoorna',
+            heading: "article one",
+            date:'sep 5 2016',
+            content:`
+                <p>
+                    this is article one.
+                </p>`
+           },
+
+            'article-two':{
+                 title :'Article two | Annapoorna',
+                heading: "article two",
+                date:'sep 10 2016',
+                content:`
+                    <p>
+                        this is article two.
+                    </p>`
+            },
+        
+            'article-three':{
+                 title :'Article two | Annapoorna',
+                heading: "article two",
+                date:'sep 10 2016',
+                content:`
+                <p>
+                        this is article two.
+                    </p>`
+            }
+};
 
 function createTemplate(data){
     var title=data.title;
@@ -33,24 +53,24 @@ function createTemplate(data){
                 </title>
                 <meta name="viewport" contents="width=device=width,intial-scale=1"/>
                  <link href="/ui/style.css" rel="stylesheet" />
-                
             </head>
+           
             <body>
                 <div class="container">
-                <div>
-                    <a href="/">Home</a>
-                </div>
+                    <div>
+                        <a href="/">Home</a>
+                    </div>
                 <hr/>
-                <h3>
-                    ${heading}
-                </h3>
-                <div>
-                   ${date}
-                </div>
-                <div>
-               ${content}
-                </div>
-                </div>
+                    <h3>
+                        ${heading}
+                    </h3>
+                    <div>
+                       ${date}
+                    </div>
+                    <div>
+                   ${content}
+                    </div>
+              </div>
             </body>
         </html>
         `;
@@ -61,17 +81,11 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one',function ( req,res) {
-    res.sendFile(createTemplate(articleone));
+app.get('/articleName',function ( req,res) {
+    var articleName =req.params.articleName;
+    res.sendFile(createTemplate(articles[articleName]));
 });
 
-app.get('/article-two',function( req,res){
-     res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
-});
-
-app.get('/article-three',function( req, res){
-    res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
-});
 
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
